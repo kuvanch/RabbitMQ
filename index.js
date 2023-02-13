@@ -48,7 +48,7 @@ function consumeMessages() {
             let queueName = process.env.QUEUE_TO_LISTEN
 
             channel.assertQueue(queueName, {
-                durable: false
+                durable: true
             })
 
             channel.consume(queueName, (msg) => {
@@ -94,7 +94,7 @@ async function sendAmqp(queue, mess) {
             let queueName = queue
             let message = mess
             channel.assertQueue(queueName, {
-                durable: false
+                durable: true
             })
             channel.sendToQueue(queueName, Buffer.from(message))
             setTimeout(() => {
@@ -104,3 +104,5 @@ async function sendAmqp(queue, mess) {
     })
     return true
 }
+
+console.log(process.env.AMQP_URL)
